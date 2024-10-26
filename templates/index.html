@@ -78,8 +78,8 @@
                 });
                 const video = document.getElementById('camera');
                 video.srcObject = stream;
-                const blur = document.getElementById('blur');
-                blur.srcObject = stream;
+                const blura = document.getElementById('blur');
+                blura.srcObject = stream;
                 const blurb = document.getElementById('blurb');
                 blurb.srcObject = stream;
             } catch (error) {
@@ -93,6 +93,8 @@
             snapshot.id = "snapshot";
             
             const video = document.getElementById('camera');
+            const blura = document.getElementById('blur');
+            const blurb = document.getElementById('blurb');
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
@@ -104,7 +106,7 @@
             stream.getTracks().forEach(track => track.stop());
             document.body.appendChild(snapshot);
             video.remove();
-            blur.remove()
+            blura.remove()
             blurb.remove()
             document.getElementById("button").remove();
         }
