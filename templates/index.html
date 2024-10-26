@@ -155,6 +155,8 @@
 			blura.classList.add("dissappearingBlur")
 			blurb.classList.add("dissappearingBlur")
 			setTimeout(() => {stream.getTracks().forEach(track => track.stop())}, 1500)
+			blura.remove()
+			blurb.remove()
         }
         getLocation()
         startCamera();
