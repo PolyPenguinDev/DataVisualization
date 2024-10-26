@@ -82,6 +82,8 @@
     <video id="blurb" autoplay playsinline disablePictureInPicture></video>
     <video id="camera" autoplay playsinline disablePictureInPicture></video>
     <button onclick="captureFrame()" id="button"></button>
+	<button id="prevImg" style="transform: translate3d(-100%,0,0);" onclick="changePicture('prev')"><-</button>
+	<button id="nextImg" style="transform: translate3d(100%,0,0);" onclick="changePicture('next')">-></button>
     
 	<div id="planeInfo">
 		<div id="airlineInfo">airline: <span id="airlineLabel"></span></div>
@@ -99,6 +101,10 @@
         var latitude=null
         var longitude = null
         var elevation = null
+		
+		let pictures = []
+		let picIndex
+		
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -184,6 +190,10 @@
 				modelLabel.innerHTML = data.model
 				originLabel.innerHTML = data.orgin
 				originCodeLabel.innerHTML = data["orgin code"]
+				
+				pictures = data.images
+				pictures.unshift(snapshot.src)
+				picIndex = 0
             })
 			
 			
@@ -193,6 +203,22 @@
         }
         getLocation()
         startCamera();
+		
+		function changePicture(direction){
+			switch(direction){
+				case "prev":
+					//go to the previous picture
+					picIndex -= 1
+					picIndex = Math.abs((picIndex+pictures.length) % pictures.length)
+					break
+				case "next":
+					//go to the next picture
+					picIndex += 1
+					picIndex = Math.abs(picIndex % pictures.length)
+					break
+			}
+			snapshot.src = pictures[picIndex]
+		}
     </script>
 </body>
 </html>
