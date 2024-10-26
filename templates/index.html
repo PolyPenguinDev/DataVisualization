@@ -22,7 +22,6 @@
             max-width: 100%;
             max-height: 100%;
             margin-top: 10px;
-            border-radius: 30px;
             box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2);
         }
         #blur {
@@ -67,12 +66,13 @@
 		.movingPicture {
 			transform: translate3d(0, -80%, 0);
 			scale: 0.5;
-			transition: transform 1s ease, scale 1s ease;
+            border-radius: 30px;
+			transition: transform 1s ease, scale 1s ease, border-radius 1s ease;
 		}
 		
 		.dissappearingBlur{
 			opacity: 0;
-			transition: opacity 1s;
+			transition: opacity 0.5s;
 		}
     </style>
 </head>
