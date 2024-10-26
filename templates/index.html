@@ -83,6 +83,17 @@
     <video id="camera" autoplay playsinline disablePictureInPicture></video>
     <button onclick="captureFrame()" id="button"></button>
     
+	<div id="planeInfo">
+		<div id="airlineInfo">airline: <span id="airlineLabel"></span></div>
+		<div id="originCodeInfo">origin code: <span id="originCodeLabel"></span></div>
+		<div id="destinationCodeInfo">destination code: <span id="destinationCodeLabel"></span></div>
+		<div id="originInfo">origin: <span id="originLabel"></span></div>
+		<div id="destinationInfo">destination: <span id="destinationLabel"></span></div>
+		<div id="dGateInfo">departure gate: <span id="dGateLabel"></span></div>
+		<div id="aGateInfo">arrival gate: <span id="aGateLabel"></span></div>
+		<div id="callSignInfo">call sign: <span id="callSignLabel"></span></div>
+		<div id="modelInfo">model: <span id="modelLabel"></span></div>
+	</div>
 	
     <script>
         var latitude=null
@@ -164,7 +175,21 @@
             })
             .then(data => {
                 console.log(data)
+				airlineLabel.innerHTML = data.airline
+				aGateLabel.innerHTML = data["arrival gate"]
+				callSignLabel.innerHTML = data["call sign"]
+				dGateLabel.innerHTML = data["depart gate"]
+				destinationLabel.innerHTML = data["destination"]
+				destinationCodeLabel.innerHTML = data["destination code"]
+				modelLabel.innerHTML = data.model
+				originLabel.innerHTML = data.orgin
+				originCodeLabel.innerHTML = data["orgin code"]
             })
+			
+			
+			
+			
+			
         }
         getLocation()
         startCamera();
