@@ -64,9 +64,9 @@
         }
         
         function captureFrame() {
-            var elemDiv = document.createElement('img');
-            elemDiv.id = "snapshot"
-            document.body.appendChild(elemDiv)
+            var snapshot = document.createElement('img');
+            snapshot.id = "snapshot"
+            
             const video = document.getElementById('camera');
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
@@ -74,12 +74,11 @@
 
             const context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            const snapshot = document.getElementById('snapshot');
             snapshot.src = canvas.toDataURL('image/png');
 
             stream.getTracks().forEach(track => track.stop());
             video.srcObject = null;
+            document.body.appendChild(snapshot)
             document.getElementById('camera').remove()
             document.getElementById("button").remove()
         }
