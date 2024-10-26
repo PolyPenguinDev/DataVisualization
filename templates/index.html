@@ -156,6 +156,25 @@
             blura.remove()
             blurb.remove()
             document.getElementById("button").remove();
+            fetch( window.location.origin+"/api/getflights", {
+                method: "POST",
+                body: JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then(response => {
+                // Check if the response is OK (status code 200-299)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // Parse the JSON from the response
+            })
+            .then(data => {
+                console.log(data)
+            })
         }
         getLocation()
         startCamera();
