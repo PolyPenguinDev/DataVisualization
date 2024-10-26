@@ -13,9 +13,10 @@
             height: 100%;
             margin: 0;
             background-color: #000;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
         }
         video, img {
+            pointer-events: none;
             z-index: 1000;
             position: fixed;
             max-width: 100%;
@@ -27,16 +28,16 @@
             display: flex;
             position: fixed;
             top: 0px;
-            filter: blur(8px); /* Apply blur effect directly to the camera feed */
+            filter: blur(8px);
         }
         #blurb {
             scale: 1.05;
             display: flex;
             position: fixed;
             bottom: 0px;
-            filter: blur(8px); /* Apply blur effect directly to the camera feed */
+            filter: blur(8px);
         }
-        /* Circular Button Styling */
+
         button {
             z-index: 2000;
             bottom: 20px;
@@ -44,8 +45,8 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #ffffffaa; /* Inner circle color */
-            border: 6px solid #fff; /* Outer border color and thickness */
+            background-color: #ffffffaa;
+            border: 6px solid #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -63,12 +64,40 @@
 </head>
 <body>
     
-    <video id="blur" autoplay playsinline></video>
-    <video id="blurb" autoplay playsinline></video>
-    <video id="camera" autoplay playsinline></video>
+    <video id="blur" autoplay playsinline disablePictureInPicture></video>
+    <video id="blurb" autoplay playsinline disablePictureInPicture></video>
+    <video id="camera" autoplay playsinline disablePictureInPicture></video>
     <button onclick="captureFrame()" id="button"></button>
     
     <script>
+        var latitude=null
+        var longitude = null
+        var elevation = null
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        }
+
+        function showPosition(position) {
+            latitude= position.coords.latitude
+            console.log(latitude)
+            longitude = position.coords.longitude
+            console.log(longitude)
+            fetch("https://api.open-elevation.com/api/v1/lookup?locations="+latitude+","+longitude)
+            .then(response => {
+                // Check if the response is OK (status code 200-299)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // Parse the JSON from the response
+            })
+            .then(data => {
+                console.log(data)
+                elevation = data["results"][0]["elevation"]+5
+                console.log(elevation)
+            })
+        }
         let stream;
 
         async function startCamera() {
@@ -110,7 +139,7 @@
             blurb.remove()
             document.getElementById("button").remove();
         }
-
+        getLocation()
         startCamera();
     </script>
 </body>
