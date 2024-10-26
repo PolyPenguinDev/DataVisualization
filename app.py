@@ -49,7 +49,7 @@ def getflights():
     images = []
     for j in i.aircraft_images["large"]:
         images.append(j['src'])
-    data={"images":images, "destination":i.destination_airport_name.split(" ")[0], "orgin":i.origin_airport_name, "destination code":i.destination_airport_iata, "orgin code":i.origin_airport_iata, "model":i.aircraft_model, "airline":i.airline_name, "depart gate":i.origin_airport_gate, "arrival gate":i.destination_airport_gate, "age": i.aircraft_age, "call sign":i.callsign}
+    data={"images":images, "destination":i.destination_airport_name.split(" ")[0], "orgin":i.origin_airport_name.split(" ")[0], "destination code":i.destination_airport_iata, "orgin code":i.origin_airport_iata, "model":i.aircraft_model, "airline":i.airline_name, "depart gate":i.origin_airport_gate, "arrival gate":i.destination_airport_gate, "age": i.aircraft_age, "call sign":i.callsign}
     return jsonify(data)
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')  # Allows access over LAN
