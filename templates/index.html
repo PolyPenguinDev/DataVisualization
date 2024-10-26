@@ -104,7 +104,10 @@
 		let deviceAlpha;
 		let deviceBeta;
 		let deviceGamma;
-		
+		if(window.deviceOrientationEvent){
+			DeviceOrientationEvent.requestPermission()
+		}
+		//DeviceOrientationEvent.requestPermission();
 		window.addEventListener('deviceorientation', handleOrientation);
 		
 		function handleOrientation(event){
