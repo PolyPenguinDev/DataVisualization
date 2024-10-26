@@ -23,7 +23,17 @@
             margin-top: 10px;
         }
         #blur {
-            scale: 2.0;
+            scale: 1.05;
+            display: flex;
+            position: fixed;
+            top: 0px;
+            filter: blur(8px); /* Apply blur effect directly to the camera feed */
+        }
+        #blurb {
+            scale: 1.05;
+            display: flex;
+            position: fixed;
+            bottom: 0px;
             filter: blur(8px); /* Apply blur effect directly to the camera feed */
         }
         /* Circular Button Styling */
@@ -54,6 +64,7 @@
 <body>
     
     <video id="blur" autoplay playsinline></video>
+    <video id="blurb" autoplay playsinline></video>
     <video id="camera" autoplay playsinline></video>
     <button onclick="captureFrame()" id="button"></button>
     
@@ -69,6 +80,8 @@
                 video.srcObject = stream;
                 const blur = document.getElementById('blur');
                 blur.srcObject = stream;
+                const blurb = document.getElementById('blurb');
+                blurb.srcObject = stream;
             } catch (error) {
                 console.error("Error accessing the camera:", error);
                 alert("Could not access the camera.");
