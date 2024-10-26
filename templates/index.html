@@ -60,6 +60,13 @@
         button:active {
             transform: scale(0.95); /* Button effect on click */
         }
+		
+		
+		.movingPicture {
+			transform: translate3d(0, -100%, 0);
+			scale: 0.5;
+			transition: transform 1s ease, scale 1s ease;
+		}
     </style>
 </head>
 <body>
@@ -68,8 +75,7 @@
     <video id="blurb" autoplay playsinline disablePictureInPicture></video>
     <video id="camera" autoplay playsinline disablePictureInPicture></video>
     <button onclick="captureFrame()" id="button"></button>
-    <div style="background-color: black; z-index: 3000;"><text id="orientationLabel" style="z-index: 3000; bottom: 10px; color: white;"><span id="alphaLabel">0</span>, <span id="betaLabel">0</span>, <span id="gammaLabel">0</span></text></div>
-	
+    
 	
     <script>
         var latitude=null
@@ -101,22 +107,7 @@
             })
         }
         let stream;
-		let deviceAlpha;
-		let deviceBeta;
-		let deviceGamma;
 		
-		window.addEventListener('deviceorientation', handleOrientation);
-		
-		function handleOrientation(event){
-			alphaLabel.innerHTML = event.alpha.toFixed(1);
-			betaLabel.innerHTML = event.beta.toFixed(1);
-			gammaLabel.innerHTML = event.gamma.toFixed(1);
-			
-		}
-		
-		function rayCast(alpha,beta,gamma){
-			
-		}
 
         async function startCamera() {
             try {
@@ -156,6 +147,8 @@
             blura.remove()
             blurb.remove()
             document.getElementById("button").remove();
+			
+			document.getElementById("snapshot").classList.add("movingPicture")
             fetch( window.location.origin+"/api/getflights", {
                 method: "POST",
                 body: JSON.stringify({
