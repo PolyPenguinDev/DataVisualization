@@ -67,6 +67,11 @@
 			scale: 0.5;
 			transition: transform 1s ease, scale 1s ease;
 		}
+		
+		.dissappearingBlur{
+			opacity: 0;
+			transition: opacity 1s;
+		}
     </style>
 </head>
 <body>
@@ -141,14 +146,15 @@
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             snapshot.src = canvas.toDataURL('image/png');
 
-            stream.getTracks().forEach(track => track.stop());
+            //stream.getTracks().forEach(track => track.stop());
             document.body.appendChild(snapshot);
             video.remove();
-            blura.remove()
-            blurb.remove()
             document.getElementById("button").remove();
 			
 			document.getElementById("snapshot").classList.add("movingPicture")
+			blura.classList.add("dissappearingBlur")
+			blurb.classList.add("dissappearingBlur")
+			setTimeout(() => {stream.getTracks().forEach(track => track.stop())}, 1500)
         }
         getLocation()
         startCamera();
