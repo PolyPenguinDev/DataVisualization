@@ -13,15 +13,22 @@
             height: 100%;
             margin: 0;
             background-color: #000;
+            overflow: hidden; /* Prevent scrolling */
         }
         video, img {
+            z-index: 1000;
+            position: fixed;
             max-width: 100%;
             max-height: 100%;
             margin-top: 10px;
         }
+        #blur {
+            scale: 2.0;
+            filter: blur(8px); /* Apply blur effect directly to the camera feed */
+        }
         /* Circular Button Styling */
         button {
-            bottom:20px;
+            bottom: 20px;
             position: fixed;
             width: 60px;
             height: 60px;
@@ -36,6 +43,7 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
             padding: 10px; /* Add padding here */
             box-sizing: border-box; /* Ensure padding is included in total width/height */
+            transition: transform 0.1s; /* Smooth transition for button effect */
         }
         button:active {
             transform: scale(0.95); /* Button effect on click */
@@ -43,10 +51,11 @@
     </style>
 </head>
 <body>
-    <video id="camera" autoplay playsinline></video>
-    <button onclick="captureFrame()", id="button"></button>
     
-
+    <video id="blur" autoplay playsinline></video>
+    <video id="camera" autoplay playsinline></video>
+    <button onclick="captureFrame()" id="button"></button>
+    
     <script>
         let stream;
 
@@ -57,6 +66,8 @@
                 });
                 const video = document.getElementById('camera');
                 video.srcObject = stream;
+                const blur = document.getElementById('blur');
+                blur.srcObject = stream;
             } catch (error) {
                 console.error("Error accessing the camera:", error);
                 alert("Could not access the camera.");
@@ -65,7 +76,7 @@
         
         function captureFrame() {
             var snapshot = document.createElement('img');
-            snapshot.id = "snapshot"
+            snapshot.id = "snapshot";
             
             const video = document.getElementById('camera');
             const canvas = document.createElement('canvas');
@@ -78,9 +89,9 @@
 
             stream.getTracks().forEach(track => track.stop());
             video.srcObject = null;
-            document.body.appendChild(snapshot)
-            document.getElementById('camera').remove()
-            document.getElementById("button").remove()
+            document.body.appendChild(snapshot);
+            document.getElementById('camera').remove();
+            document.getElementById("button").remove();
         }
 
         startCamera();
