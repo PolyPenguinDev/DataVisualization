@@ -68,7 +68,7 @@
     <video id="blurb" autoplay playsinline disablePictureInPicture></video>
     <video id="camera" autoplay playsinline disablePictureInPicture></video>
     <button onclick="captureFrame()" id="button"></button>
-    <div style="background-color: black; z-index: 3000;"><text id="orientationLabel" style="z-index: 3000; bottom: 10px; color: white;"><span id="alphaLabel">0</span>, <span id="betaLabel">0</span>, <span id="gammaLabel">0</span></text></div>
+    <div style="background-color: black; z-index: 3000;"><button onclick="enableGyro">enable gyroscope</button><text id="orientationLabel" style="z-index: 3000; bottom: 10px; color: white;"><span id="alphaLabel">0</span>, <span id="betaLabel">0</span>, <span id="gammaLabel">0</span></text></div>
 	
 	
     <script>
@@ -105,7 +105,7 @@
 		let deviceBeta;
 		let deviceGamma;
 		
-		setTimeout(() => {if(window.deviceOrientationEvent){DeviceOrientationEvent.requestPermission()}},0)
+		function enableGyro(){if(window.deviceOrientationEvent){DeviceOrientationEvent.requestPermission()}}
 		
 		//DeviceOrientationEvent.requestPermission();
 		window.addEventListener('deviceorientation', handleOrientation);
