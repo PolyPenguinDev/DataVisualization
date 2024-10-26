@@ -5,30 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera Passthrough</title>
     <style>
-        /* Center the video on the page */
         body, html {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100%;
             margin: 0;
             background-color: #000;
         }
-        video {
+        video, img {
             max-width: 100%;
             max-height: 100%;
-            width: 100%;
-            height: 100%;
+            margin-top: 10px;
+        }
+        /* Circular Button Styling */
+        button {
+            bottom:20px;
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #143434; /* Inner circle color */
+            border: 6px solid #1a4d4d; /* Outer border color and thickness */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+            padding: 10px; /* Add padding here */
+            box-sizing: border-box; /* Ensure padding is included in total width/height */
+        }
+        button:active {
+            transform: scale(0.95); /* Button effect on click */
         }
     </style>
 </head>
 <body>
     <video id="camera" autoplay playsinline></video>
+    <button onclick="captureFrame()", id="button"></button>
+    
+
     <script>
+        let stream;
+
         async function startCamera() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: "environment" } // Use the back camera
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "environment" }
                 });
                 const video = document.getElementById('camera');
                 video.srcObject = stream;
@@ -38,6 +63,27 @@
             }
         }
         
+        function captureFrame() {
+            var elemDiv = document.createElement('img');
+            elemDiv.id = "snapshot"
+            document.body.appendChild(elemDiv)
+            const video = document.getElementById('camera');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const snapshot = document.getElementById('snapshot');
+            snapshot.src = canvas.toDataURL('image/png');
+
+            stream.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+            document.getElementById('camera').remove()
+            document.getElementById("button").remove()
+        }
+
         startCamera();
     </script>
 </body>
