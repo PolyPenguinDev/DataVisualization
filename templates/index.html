@@ -181,32 +181,16 @@
 	<button id="nextImg" style="transform: translate(250%,-1050%) scale(2);" onclick="changePicture('next')" class="imgButton"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M646-440H200q-17 0-28.5-11.5T160-480q0-17 11.5-28.5T200-520h446L532-634q-12-12-11.5-28t11.5-28q12-12 28.5-12.5T589-691l183 183q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L589-269q-12 12-28.5 11.5T532-270q-11-12-11.5-28t11.5-28l114-114Z"/></svg></button>
 	
     <script>
+        function preloadImage(url) {
+            var img=new Image();
+            img.src=url;
+        }
         var latitude=null
         var longitude = null
         var elevation = null
 		
 		let pictures = []
 		let picIndex
-		function convertTimestampToAMPM(timestamp) {
-            // Convert seconds to milliseconds
-            const date = new Date(timestamp * 1000);
-            
-            // Extract hours and minutes
-            let hours = date.getHours();
-            const minutes = date.getMinutes();
-
-            // Determine AM/PM suffix
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-
-            // Convert hours from 24-hour to 12-hour format
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            
-            // Format minutes to always show two digits
-            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-
-            return `${hours}:${formattedMinutes} ${ampm}`;
-        }
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -294,8 +278,10 @@
 				modelLabel.innerHTML = data.model
 				originLabel.innerHTML = data.orgin
 				originCodeLabel.innerHTML = data["orgin code"]
-				console.log(convertTimestampToAMPM(data["depart"]))
 				pictures = data.images
+                pictures.forEach(image=>{
+                    preloadImage(image)
+                })
 				pictures.unshift(snapshot.src)
 				picIndex = 0
             })
