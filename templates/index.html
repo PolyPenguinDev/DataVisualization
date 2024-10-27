@@ -281,8 +281,8 @@
             fetch( window.location.origin+"/api/getflights", {
                 method: "POST",
                 body: JSON.stringify({
-                    latitude: latitude,
-                    longitude: longitude
+                    lat: latitude,
+                    long: longitude
                 }),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
