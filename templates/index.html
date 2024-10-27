@@ -117,6 +117,26 @@
 			opacity: 1;
 			transition: opacity 1s;
 		}
+        #dGateLabel, #aGateLabel {
+            font-size: 20px;
+            font-weight: 600;
+            
+            
+        }
+        #dGateLabel {
+            margin-right: 10px;
+        }
+        #aGateLabel {
+            margin-left: 10px;
+        }
+        #enter {
+            transform: translate(0px, 5px);
+            margin-left: 10px;
+        }
+        #exit {
+            transform: translate(0px, 5px);
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -131,10 +151,17 @@
         <svg id="plane" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-408 147-307q-24 10-45.5-4.5T80-352v-22q0-12 5.5-23t15.5-18l299-209v-176q0-33 23.5-56.5T480-880q33 0 56.5 23.5T560-800v176l299 209q10 7 15.5 18t5.5 23v22q0 26-21.5 40.5T813-307L560-408v144l103 72q8 6 12.5 14.5T680-159v24q0 20-16.5 32.5T627-96l-147-44-147 44q-20 6-36.5-6.5T280-135v-24q0-10 4.5-18.5T297-192l103-72v-144Z"/></svg>
         <span id="destinationCodeLabel" class="code"></span></div>
     <div id="originInfo"><span id="originLabel"></span>-<span id="destinationLabel"></span></div>
-    <div id="dGateInfo"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M520-120q-17 0-28.5-11.5T480-160q0-17 11.5-28.5T520-200h240v-560H520q-17 0-28.5-11.5T480-800q0-17 11.5-28.5T520-840h240q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H520Zm-73-320H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L429-309q-12 12-28.5 11.5T372-310q-11-12-10.5-28.5T373-366l74-74Z"/></svg> <span id="dGateLabel"></span></div>
-    <div id="aGateInfo">arrival gate: <span id="aGateLabel"></span></div>
-    <div id="callSignInfo">call sign: <span id="callSignLabel"></span></div>
-    <div id="modelInfo">model: <span id="modelLabel"></span></div>
+    <div style="margin-top: 10px;">
+        <span id="dGateInfo">
+            <svg id="enter" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M520-120q-17 0-28.5-11.5T480-160q0-17 11.5-28.5T520-200h240v-560H520q-17 0-28.5-11.5T480-800q0-17 11.5-28.5T520-840h240q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H520Zm-73-320H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L429-309q-12 12-28.5 11.5T372-310q-11-12-10.5-28.5T373-366l74-74Z"/></svg>
+            <span id="dGateLabel"></span></span>
+        Gates
+        <span id="aGateInfo">
+            <span id="aGateLabel"></span></span>
+            <svg id="exit" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z"/></svg>
+    </div>
+    <span style="margin-top: 10px;" id="callSignLabel"></span>
+    <span id="modelLabel"></span>
 	<button id="prevImg" style="transform: translate3d(-175%,-425%,0);" onclick="changePicture('prev')" class="imgButton"><</button>
 	<button id="nextImg" style="transform: translate3d(175%,-425%,0);" onclick="changePicture('next')" class="imgButton">></button>
 	
