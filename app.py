@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from FlightRadar24 import FlightRadar24API
-
+import airportsdata
+airports = airportsdata.load('IATA')
 import math
 
 def find_closest_point(coordinates, target_lat, target_lon):
@@ -25,7 +26,8 @@ def find_closest_point(coordinates, target_lat, target_lon):
 fr_api = FlightRadar24API()
 
 app = Flask(__name__)
-
+def get_city(id):
+    return airports[id]['city']
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -51,7 +53,7 @@ def getflights():
         images.append(j['src'])
     depart = i.time_details["real"]['departure'] if i.time_details["real"]['departure'] is not None else i.time_details["scheduled"]['departure']
     arrive = i.time_details["real"]['arrival'] if i.time_details["real"]['arrival'] is not None else (depart-i.time_details["scheduled"]['departure'])+i.time_details["scheduled"]['arrival']
-    data={"images":images, "destination":i.destination_airport_name.split(" ")[0], "orgin":i.origin_airport_name.split(" ")[0], "destination code":i.destination_airport_iata, "orgin code":i.origin_airport_iata, "model":i.aircraft_model, "airline":i.airline_name, "depart gate":i.origin_airport_gate, "arrival gate":i.destination_airport_gate, "age": i.aircraft_age, "call sign":i.callsign, "depart":depart, "arrive":arrive}
+    data={"images":images, "destination":get_city(i.destination_airport_iata), "orgin":get_city(i.origin_airport_iata), "destination code":i.destination_airport_iata, "orgin code":i.origin_airport_iata, "model":i.aircraft_model, "airline":i.airline_name, "depart gate":i.origin_airport_gate, "arrival gate":i.destination_airport_gate, "age": i.aircraft_age, "call sign":i.callsign, "depart":depart, "arrive":arrive}
     print(data)
     return jsonify(data)
 if __name__ == "__main__":
