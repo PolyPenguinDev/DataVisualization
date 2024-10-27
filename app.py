@@ -27,7 +27,10 @@ fr_api = FlightRadar24API()
 
 app = Flask(__name__)
 def get_city(id):
-    return airports[id]['city']
+    try:
+        return airports[id]['city']
+    except:
+        return "N/A"
 @app.route("/")
 def index():
     return render_template("index.html")
