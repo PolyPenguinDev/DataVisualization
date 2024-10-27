@@ -72,7 +72,7 @@
 		
 		
 		.movingPicture {
-			transform: translate3d(0, -80%, 0);
+			transform: translate3d(0, -100%, 0);
 			scale: 0.4;
             border-radius: 30px;
 			transition: transform 1s ease, scale 1s ease, border-radius 1s ease;
@@ -137,7 +137,26 @@
 		
 		let pictures = []
 		let picIndex
-		
+		function convertTimestampToAMPM(timestamp) {
+            // Convert seconds to milliseconds
+            const date = new Date(timestamp * 1000);
+            
+            // Extract hours and minutes
+            let hours = date.getHours();
+            const minutes = date.getMinutes();
+
+            // Determine AM/PM suffix
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // Convert hours from 24-hour to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            // Format minutes to always show two digits
+            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return `${hours}:${formattedMinutes} ${ampm}`;
+        }
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -223,7 +242,7 @@
 				modelLabel.innerHTML = data.model
 				originLabel.innerHTML = data.orgin
 				originCodeLabel.innerHTML = data["orgin code"]
-				
+				console.log(convertTimestampToAMPM(data["depart"]))
 				pictures = data.images
 				pictures.unshift(snapshot.src)
 				picIndex = 0
