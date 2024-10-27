@@ -152,12 +152,13 @@
             margin-right: 10px;
         }
         #time {
-            width: 95%;
+            margin-top: 10px;
+            width: 100%;
             justify-content: space-between;
             display: flex;
         }
         #flightProg {
-            width: 50%;
+            width: 43%;
             scale: 2;
         }
         #startTime {
@@ -176,24 +177,25 @@
     <video id="blurb" autoplay playsinline disablePictureInPicture></video>
     <video id="camera" autoplay playsinline disablePictureInPicture></video>
     <button onclick="captureFrame()" id="button"></button>
-    <span id="airlineLabel"></span>
+    <span id="airlineLabel">Unknown</span>
     <div id="originCodeInfo">
-        <span id="originCodeLabel" class="code"></span>
+        <span id="originCodeLabel" class="code">???</span>
         <svg id="plane" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-408 147-307q-24 10-45.5-4.5T80-352v-22q0-12 5.5-23t15.5-18l299-209v-176q0-33 23.5-56.5T480-880q33 0 56.5 23.5T560-800v176l299 209q10 7 15.5 18t5.5 23v22q0 26-21.5 40.5T813-307L560-408v144l103 72q8 6 12.5 14.5T680-159v24q0 20-16.5 32.5T627-96l-147-44-147 44q-20 6-36.5-6.5T280-135v-24q0-10 4.5-18.5T297-192l103-72v-144Z"/></svg>
-        <span id="destinationCodeLabel" class="code"></span></div>
-    <div id="originInfo"><span id="originLabel"></span>-<span id="destinationLabel"></span></div>
+        <span id="destinationCodeLabel" class="code">???</span></div>
+    <div id="originInfo"><span id="originLabel">Unknown</span>-<span id="destinationLabel">Unknown</span></div>
     <div style="margin-top: 10px;">
         <span id="dGateInfo">
             <svg id="enter" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M520-120q-17 0-28.5-11.5T480-160q0-17 11.5-28.5T520-200h240v-560H520q-17 0-28.5-11.5T480-800q0-17 11.5-28.5T520-840h240q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H520Zm-73-320H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L429-309q-12 12-28.5 11.5T372-310q-11-12-10.5-28.5T373-366l74-74Z"/></svg>
-            <span id="dGateLabel"></span></span>
+            <span id="dGateLabel">???</span></span>
         Gates
         <span id="aGateInfo">
-            <span id="aGateLabel"></span></span>
+            <span id="aGateLabel">???</span></span>
             <svg id="exit" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z"/></svg>
     </div>
-    <span style="margin-top: 10px;" id="callSignLabel"></span>
-    <span id="modelLabel"></span>
-	<div id="time"><span id="startTime">0:00</span>    <span id="endTime">0:00</span></div>
+    
+	<div id="time"><span id="startTime">Sunday 0:00</span>    <span id="endTime">Sunday 0:00</span></div>
+    <span style="margin-top: 10px;" id="callSignLabel">???????</span>
+    <span id="modelLabel">Unknown</span>
     <progress id="flightProg" max="10" value="0"></progress>
 	<button id="prevImg" style="transform: translate(-250%,-1050%) scale(2);" onclick="changePicture('prev')" class="imgButton"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m314-440 114 114q12 12 11.5 28T428-270q-12 12-28.5 12.5T371-269L188-452q-12-12-12-28t12-28l183-183q12-12 28.5-11.5T428-690q11 12 11.5 28T428-634L314-520h446q17 0 28.5 11.5T800-480q0 17-11.5 28.5T760-440H314Z"/></svg></button>
 	<button id="nextImg" style="transform: translate(250%,-1050%) scale(2);" onclick="changePicture('next')" class="imgButton"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M646-440H200q-17 0-28.5-11.5T160-480q0-17 11.5-28.5T200-520h446L532-634q-12-12-11.5-28t11.5-28q12-12 28.5-12.5T589-691l183 183q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L589-269q-12 12-28.5 11.5T532-270q-11-12-11.5-28t11.5-28l114-114Z"/></svg></button>
