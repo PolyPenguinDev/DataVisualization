@@ -34,8 +34,6 @@ def index():
 @app.post("/api/getflights")
 def getflights():
     data = request.get_json()
-    latitude=38.952248
-    longitude=-77.4627541
     lis =[]
     nearby = fr_api.get_flights(bounds=fr_api.get_bounds_by_point(latitude, longitude, 8047))
     for i in nearby:
